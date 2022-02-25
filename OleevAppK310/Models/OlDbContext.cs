@@ -7,6 +7,13 @@ namespace OleevAppK310.Models
         public OlDbContext(DbContextOptions<OlDbContext> opt):base(opt)
         {
         }
-        public DbSet<Section1Left> Section1Lefts { get; set; }
+        public DbSet<Section1> Section1s { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Reserv> Reservs { get; set; }
+        public DbSet<ReservCategory> ReservCategories { get; set; }
+        public DbSet<SaleProduct> SaleProducts { get; set; }
+        public DbSet<AboutUs> AboutUs { get; set; }
+        public DbSet<Service> Services { get; set; }
+
     }
 }

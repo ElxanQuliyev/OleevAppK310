@@ -1,24 +1,45 @@
-﻿@model Section1Left
-<form method="post" class="col-lg-7" enctype="multipart/form-data"> 
-        
-    <div>
-        <label>Subheader</label>
-        <input class="form-control" asp-for="SubHeader"/>
-    </div>
-    <div>
-        <label>Header</label>
-     <input class="form-control" asp-for="Header"/>
-    </div>
+﻿@model OleevAppK310.Models.Section1
 
-    <div>
-        <label>Select Photo</label>
-     <input type="file" class="form-control" asp-for="PhotoUrl"/>
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Section1</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SubHeader" class="control-label"></label>
+                <input asp-for="SubHeader" class="form-control" />
+                <span asp-validation-for="SubHeader" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Header" class="control-label"></label>
+                <input asp-for="Header" class="form-control" />
+                <span asp-validation-for="Header" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhotoUrl" class="control-label"></label>
+                <input type="file" asp-for="PhotoUrl" class="form-control" />
+                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-    <div>
-        <label>Description</label>
-    <input class="form-control" asp-for="Description"/>
-    </div>
-    @*<button type="submit">Create</button>*@
-    <input class="btn btn-primary" type="submit" value="Create"/>
-</form>
-<a asp-action="Index">Back</a>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
