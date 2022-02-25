@@ -1,0 +1,39 @@
+﻿@model List<Section1Left>
+
+<a asp-action="Create" class="btn btn-success">Create</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">SubTitle</th>
+            <th scope="col">Header</th>
+            <th scope="col">Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+        }
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+            <td scope="row">@count</td>
+            <td>@item.SubHeader</td>
+            <td>@item.Header</td>
+            <td>@item.Description</td>
+            <td>
+                <img width="100" src="@item.PhotoUrl"/>
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Detail" asp-route-id="@item.Id">Detail</a> | 
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>    
+        }
+        
+    </tbody>
+</table>

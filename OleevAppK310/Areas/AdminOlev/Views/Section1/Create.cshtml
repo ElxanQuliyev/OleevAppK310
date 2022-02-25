@@ -1,0 +1,24 @@
+﻿@model Section1Left
+<form method="post" class="col-lg-7" enctype="multipart/form-data"> 
+        
+    <div>
+        <label>Subheader</label>
+        <input class="form-control" asp-for="SubHeader"/>
+    </div>
+    <div>
+        <label>Header</label>
+     <input class="form-control" asp-for="Header"/>
+    </div>
+
+    <div>
+        <label>Select Photo</label>
+     <input type="file" class="form-control" asp-for="PhotoUrl"/>
+    </div>
+    <div>
+        <label>Description</label>
+    <input class="form-control" asp-for="Description"/>
+    </div>
+    @*<button type="submit">Create</button>*@
+    <input class="btn btn-primary" type="submit" value="Create"/>
+</form>
+<a asp-action="Index">Back</a>
