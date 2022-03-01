@@ -6,7 +6,7 @@ namespace OleevAppK310.Models
     {
         public int Id { get; set; }
         [MaxLength(600)]
-        public string Icon { get; set; } = null!;
+        public string? Icon { get; set; }
         [MaxLength(200)]
         public string Header { get; set; }=null!;
         [MaxLength(800)]

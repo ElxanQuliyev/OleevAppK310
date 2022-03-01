@@ -9,11 +9,14 @@ namespace OleevAppK310.Areas.AdminOlev.Controllers
     {
         private readonly OlDbContext _context;
         private readonly IWebHostEnvironment _env;
+
         public Section1Controller(OlDbContext context, IWebHostEnvironment env)
         {
             _context = context;
             _env = env;
         }
+
+
 
         // GET: Section1Controller
         public ActionResult Index()
@@ -28,44 +31,48 @@ namespace OleevAppK310.Areas.AdminOlev.Controllers
         }
 
         // GET: Section1Controller/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: Section1Controller/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Section1 sect1,IFormFile PhotoUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                if (PhotoUrl != null)
-                {
-                    string filename=Guid.NewGuid()+ PhotoUrl.FileName;
-                    string rootPath = Path.Combine(_env.WebRootPath, "images");
-                    string photoPath = Path.Combine(rootPath, filename);
-                    using FileStream fl = new(photoPath, FileMode.Create);
-                    PhotoUrl.CopyTo(fl);
-                    sect1.PhotoUrl = "/images/" + filename;
-                }
-                _context.Section1s.Add(sect1);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }    
-                return View();
-        }
+        //// POST: Section1Controller/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(Section1 sect1,IFormFile PhotoUrl)
+        //{
+        //    ModelState.ClearValidationState("PhotoUrl");
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (PhotoUrl != null)
+        //        {
+        //            string filename=Guid.NewGuid()+ PhotoUrl.FileName;
+        //            string rootPath = Path.Combine(_env.WebRootPath, "images");
+        //            string photoPath = Path.Combine(rootPath, filename);
+        //            using FileStream fl = new(photoPath, FileMode.Create);
+        //            PhotoUrl.CopyTo(fl);
+        //            sect1.PhotoUrl = "/images/" + filename;
+        //        }
+        //        _context.Section1s.Add(sect1);
+        //        _context.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }    
+        //        return View(sect1);
+        //}
 
         // GET: Section1Controller/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null) return NotFound();
+            var selectedData = _context.Section1s.Find(id);
+            if(selectedData==null) return NotFound();
+            return View(selectedData);
         }
 
         // POST: Section1Controller/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Section1 sect1,IFormFile NewPhoto)
+        public ActionResult Edit(Section1 sect1,IFormFile NewPhoto)
         {
             if (ModelState.IsValid)
             {
@@ -85,25 +92,30 @@ namespace OleevAppK310.Areas.AdminOlev.Controllers
             return View();
         }
 
-        // GET: Section1Controller/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //// GET: Section1Controller/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null) return NotFound();
+        //    return View();
+        //}
 
-        // POST: Section1Controller/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// POST: Section1Controller/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        var selectedData = _context.Section1s.Find(id);
+        //        if (selectedData == null) return NotFound();
+        //        _context.Section1s.Remove(selectedData);
+        //        _context.SaveChanges();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }
