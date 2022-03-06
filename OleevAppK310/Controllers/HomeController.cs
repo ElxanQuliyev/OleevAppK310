@@ -20,9 +20,30 @@ namespace OleevAppK310.Controllers
             IndexVM vm = new();
             vm.Section1Info= _context.Section1s.FirstOrDefault();
             vm.Services = _context.Services.ToList();
+            vm.Doctors = _context.Doctors.ToList();
+            vm.ReservCategories = _context.ReservCategories.ToList();
             return View(vm);
         }
 
+        [HttpPost]
+        public JsonResult MakeAppointment(Reserv reserv)
+        {
+            var res = new JsonResult(new { });
+            try
+            {
+                _context.Reservs.Add(reserv);
+                _context.SaveChanges();
+
+                res.Value = new { message = "Melumatiniz qeydə alındı",status=true };
+            }
+            catch (Exception e)
+            {
+
+                res.Value = new { message = e.Message, status = false};
+            }
+
+            return res;
+        }
         public IActionResult Privacy()
         {
             return View();

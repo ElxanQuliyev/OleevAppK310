@@ -10,6 +10,7 @@
       <link rel="stylesheet" href="/assets/css/style.css">
       <link rel="stylesheet" href="/assets/css/mobile.css">
       <title>Medtexh</title>
+      @await RenderSectionAsync("Css",required:false)
    </head>
    <body>
       <!-- top-bar-section-->
@@ -191,11 +192,11 @@
       <!-- footer-section -->
       <script src="/assets/js/jquery-3.6.0.min.js"> </script>
       <script src="/assets/js/popper.min.js"> </script>
-      <script src="/assets/js/wow.js"></script>
-      <script>
+      @*<script>
          new WOW().init();
-      </script>
+      </script>*@
       <script src="/assets/js/bootstrap.min.js"> </script>
       <script src="/assets/js/custom-script.js"> </script>
+      @await RenderSectionAsync("MyScripts",required:false)
    </body>
 </html>

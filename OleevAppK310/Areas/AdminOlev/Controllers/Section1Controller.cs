@@ -72,7 +72,7 @@ namespace OleevAppK310.Areas.AdminOlev.Controllers
         // POST: Section1Controller/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Section1 sect1,IFormFile NewPhoto)
+        public ActionResult Edit(Section1 sect1,IFormFile? NewPhoto)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace OleevAppK310.Areas.AdminOlev.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(sect1);
         }
 
         //// GET: Section1Controller/Delete/5
