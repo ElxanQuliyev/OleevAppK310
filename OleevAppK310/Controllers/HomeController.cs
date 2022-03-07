@@ -25,7 +25,15 @@ namespace OleevAppK310.Controllers
             return View(vm);
         }
 
+
+        public JsonResult FindByService(int? id)
+        {
+            var selectedProduct = _context.Services.Find(id);
+            return Json(selectedProduct);
+        }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult MakeAppointment(Reserv reserv)
         {
             var res = new JsonResult(new { });

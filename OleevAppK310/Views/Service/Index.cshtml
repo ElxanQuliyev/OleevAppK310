@@ -1,0 +1,53 @@
+﻿@model ServiceVM
+<!-- feature-box -->
+
+    <section>
+    <div style="margin:12rem 0" class="w-100 float-left feature-box-con text-center">
+       @if (Model.Services.Count > 0)
+{
+        <div class="container">
+            <div class="row bg-white">
+                @foreach (var ser in Model.Services)
+                {
+                    <div class="col-lg-3 col-md-3 col-sm-6  pl-0 pr-0">
+                        <div class="feature-box-item" iman="@ser.Id" data-toggle="modal" data-target="#exampleModal">
+                            <figure>
+                                <img src="@ser.Icon" alt="feature-box-icon" class="img-fluid">
+                            </figure>
+                            <h5>@ser.Header</h5>
+                            <p class="mb-0">@ser.Description</p>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="row justify-content-center mt-5">
+                <nav aria-label="Page navigation example ">
+                    <ul class="pagination">
+                        <li class="page-item @(Model.PageNo<1?"disabled":"")"><a class="page-link " href="/service/index?pageNo=@(Model.PageNo-1)">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item page-next @(Model.TotalPage <= (Model.PageNo+1)*3? "disabled":"")"><a class="page-link" href="/service/index?pageNo=@(Model.PageNo+1)">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+}
+else
+{
+    <p class="alert alert-danger">Mehsul tapilmadi</p>
+}
+
+    </div>
+    </section>
+
+<!-- feature-box -->
+@*@section MyScripts{
+
+    <script>
+
+
+    </script>
+}*@

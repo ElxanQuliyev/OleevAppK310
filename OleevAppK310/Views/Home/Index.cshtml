@@ -42,7 +42,7 @@
                 @foreach (var ser in Model.Services)
                 {
                     <div class="col-lg-3 col-md-3 col-sm-6  pl-0 pr-0">
-                        <div class="feature-box-item ">
+                        <div class="feature-box-item" iman="@ser.Id" data-toggle="modal" data-target="#exampleModal">
                             <figure>
                                 <img src="@ser.Icon" alt="feature-box-icon" class="img-fluid">
                             </figure>
@@ -58,6 +58,27 @@
     </div>
 </section>
 <!-- feature-box -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- quality-system-section -->
 <section>
     <div class="w-100 float-left quality-system-con">
@@ -247,7 +268,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <form class="contact-form" method="post" asp-action="MakeAppointment">
+                    <form class="contact-form needs-validation" method="post" asp-action="MakeAppointment" novalidate>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1" class="text-white">Department</label>
                             <select class="form-control position-relative" id="exampleFormControlSelect1" name="ReservCategoryId">
@@ -271,8 +292,9 @@
                             </div>
                             <div class="col-lg-12 col-md-6">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" name="EmailAddress" placeholder="Email:">
+                                    <input id="validationCustomEmail" type="email" class="form-control" name="EmailAddress" placeholder="Email:" required>
                                     <small id="emailHelp" class="form-text text-muted"></small>
+                                    <div class="invalid-feedback">Please choose a email.</div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
@@ -575,10 +597,50 @@
 @section MyScripts{
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $(".contact-form").on("submit",function(e){
-        var b=15;
+        
+        $(".feature-box-item").click(function(){
+            var serviceId= $(this).attr("iman")
+            $.ajax({
+                url:"/Home/FindByService/"+Number(serviceId),
+                method:"POST",
+                success:function(res){
+                    $("#exampleModal .modal-body").html(`
+                        <div class="row"> 
+                            <div class="col-lg-4">
+                              <img class="img-fluid"  src="${res.icon}" />
+                          </div>
+                          <div class="col-lg-8">
+                            <h4>${res.header}</h4>
+                            <p>${res.description}</p>
+
+                          </div>
+                        </div>
+                   `)
+                }
+            })
+        })
+
+
+        window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+        }, false);
+        });
+        }, false);
+       //
+
+        $(".contact-form").on("submit",function (e) {
         e.preventDefault();
         const formData = $(this).serialize();
+        console.log(formData)
         $.ajax({
             url:"/Home/MakeAppointment",
             method:"POST",
@@ -588,7 +650,7 @@
                 if(my.status){
                     Swal.fire(
                       'Good job!',
-                      ''+my.message+'',xx
+                      ''+my.message+'',
                       'success'
                     )
                     setTimeout(()=>{
@@ -604,6 +666,7 @@
             }
         })
     })
+
 
 </script>
       }
