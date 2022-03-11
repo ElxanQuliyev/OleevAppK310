@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess;
+using Microsoft.AspNetCore.Mvc;
+using OleevAppK310.Helpers;
 using OleevAppK310.Models;
 using OleevAppK310.ViewModels;
 
@@ -13,20 +15,19 @@ namespace OleevAppK310.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int pageNo=0)
+        public IActionResult Index(int? pageNo,int? recordSize)
         {
+            pageNo ??= 1;
+            recordSize ??= 3;
+            int skipCount = (pageNo.Value-1) * recordSize.Value;
 
-            pageNo = pageNo < 0 ? 0 : pageNo;
-
-            int skipCount = pageNo * 3;
-            ServiceVM vm = new ServiceVM
+            ServiceVM vm = new()
             {
-                Services= _context.Services.Skip(skipCount).Take(3).ToList(),
-                TotalPage=_context.Services.Count()
+                Services= _context.Services.Skip(skipCount).Take(recordSize.Value).ToList(),
             };
-
-            //pageNo = vm.TotalPage.Value / 3 < pageNo ? vm.TotalPage.Value / 3 : pageNo;
-            vm.PageNo = pageNo;
+            int count=_context.Services.Count();
+            vm.PageNo = pageNo.Value;
+            vm.Pager = new Pager(count, pageNo, recordSize.Value);
 
             return View(vm);
         }

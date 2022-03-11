@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace OleevAppK310.Models
+namespace DataAccess
 {
     public class OlDbContext:DbContext
     {

@@ -24,11 +24,13 @@
             <div class="row justify-content-center mt-5">
                 <nav aria-label="Page navigation example ">
                     <ul class="pagination">
-                        <li class="page-item @(Model.PageNo<1?"disabled":"")"><a class="page-link " href="/service/index?pageNo=@(Model.PageNo-1)">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item page-next @(Model.TotalPage <= (Model.PageNo+1)*3? "disabled":"")"><a class="page-link" href="/service/index?pageNo=@(Model.PageNo+1)">Next</a></li>
+                        <li class="page-item @(Model.Pager.CurrentPage==1?"disabled":"")"><a class="page-link " href="/service/index?pageNo=@(Model.Pager.CurrentPage-1)">Previous</a></li>
+                            @for(int myPage = Model.Pager.StartPage; myPage < Model.Pager.EndPage + 1; myPage++)
+                            {
+                                   <li class="page-item"><a class="page-link" href="/service/index?pageNo=@myPage">@myPage</a></li>
+                            }
+                   
+                        <li class="page-item page-next @(Model.Pager.CurrentPage ==Model.Pager.EndPage ? "disabled":"")"><a class="page-link" href="/service/index?pageNo=@(Model.Pager.CurrentPage+1)">Next</a></li>
                     </ul>
                 </nav>
             </div>

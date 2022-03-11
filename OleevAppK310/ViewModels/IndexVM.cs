@@ -1,5 +1,5 @@
 ﻿
-using OleevAppK310.Models;
+using Entities;
 
 namespace OleevAppK310.ViewModels
 {

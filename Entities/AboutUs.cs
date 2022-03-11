@@ -1,17 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OleevAppK310.Models
+namespace Entities
 {
-    public class SaleProduct
+    public class AboutUs
     {
         public int Id { get; set; }
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Header { get; set; } = null!;
-        public string? SubHeader { get; set; }
-        public string? Description { get; set; }
-        public int? Discount { get; set; }
         [MaxLength(500)]
+        public string? Description { get; set; }
         public string? PhotoUrl { get; set; }
     }
-
 }

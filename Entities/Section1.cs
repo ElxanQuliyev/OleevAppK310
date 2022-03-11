@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace OleevAppK310.Models
+namespace Entities
 {
     public class Section1
     {

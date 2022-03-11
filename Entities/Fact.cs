@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OleevAppK310.Models
+namespace Entities
 {
     public class Fact
     {
